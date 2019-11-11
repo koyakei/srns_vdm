@@ -1,0 +1,58 @@
+class Currency -- 通貨
+types
+-- TODO Define types here
+values
+	
+	
+instance variables
+	public currencyList : seq of Currency :=[];
+	public relationList : seq of Relation :=[];
+
+operations
+-- てんしんごそう
+-- 通貨発行
+	public SignOnCurrency: SigedCurrency ==> Currency 
+	SignOnCurrency (unitName, puclishingUser, currencyDefinition) ==
+		return new Currency(unitName, puclishingUser, currencyDefinition);
+	
+-- 通貨消滅
+	public DeleteCurrency: () ==> bool
+	DeleteCurrency(currency) ==
+		trap <FAILURE>
+			with
+				skip -- 失敗を返す
+			in
+				(currencyList := currencyList :-> {currency});
+-- 関係性解消
+	public static DeleteRelation: () ==> bool
+	DeleteRelation(relatio) ==
+		(deleteFromRelationList( targetRelationCondition));
+-- 最もメタ的な移動ルール
+-- 関係性付与
+	public MakeRelation: () ==> bool
+	MakeRelation(relation) ==
+		(makeFromRelationList(relationId, rargetRelationCondition));
+
+
+	
+-- 移動ルールの設定
+-- 移動ルールを設定してお金を作る　作れたらベクトルをquantityに持つ通貨を作る
+	public SetTransmittingRule: () ==> bool
+	SetTransmittingRule(rule) =  
+
+-- 移動ルールを使用した関係性の変化
+
+functions
+	-- relationId だと、細かく指定しなければ削除できない。
+	-- 条件指定　誰が持ってていくらあげる　下げる
+	public static updateRelationList: RelationConditon -> bool
+	updateRelationList(targetRelationCondition) ==
+		if targetRelationCondition.id <> null
+		then (relationList := relationList :-> {relation});
+
+	public static
+		addRelationList: RelationConditon -> bool
+	
+traces
+-- TODO Define Combinatorial Test Traces here
+end Currency

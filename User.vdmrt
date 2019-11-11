@@ -1,0 +1,19 @@
+class User
+types
+-- TODO Define types here
+public currencyAccounts ::
+	currencyAccount : CurrencyAccount;
+values
+-- TODO Define values here
+instance variables
+
+
+operations
+-- TODO Define operations here
+functions
+static public findCurrencyAccount : currencyUnit -> currencyAccount
+findCurrencyAccount(currencyUnit) == CurrencyAccount;
+
+traces
+-- TODO Define Combinatorial Test Traces here
+end User

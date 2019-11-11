@@ -1,0 +1,8 @@
+class Test
+
+operations
+  Money in set Currency
+  public Run: TestResult ==> ()
+  Run (-) == is subclass responsibility
+
+end Test

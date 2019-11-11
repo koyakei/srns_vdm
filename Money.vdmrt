@@ -1,0 +1,31 @@
+class Money -- カネ
+	is subclass of Currency
+types
+	unit = CurrencyUnit;
+public moneyGroup = seq of CurrencyAccount;
+values
+
+instance variables
+ unit : Unit;
+ quantity : Quantity;
+
+operations
+-- 定量的交換法則一つ増えたら一つ減る。
+	public TransmitMoney : Transmission ==> bool
+		atomic 
+		(
+			decreace(currency, giver, unit, quantitiy)
+			increace(currency, taker, unit, quantitiy)
+		);
+	
+	
+
+functions
+	static public 送金可能: TransmitMoney +> bool
+	送金可能 (送金指示) ==
+	 送金指示.sender.findCurrencyAccouny(送金指示.money_unit).quantity
+	< 送金指示.user.money_unit.quantity;
+	
+traces
+-- TODO Define Combinatorial Test Traces here
+end Money
