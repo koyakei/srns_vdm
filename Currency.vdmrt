@@ -1,15 +1,21 @@
 class Currency -- 通貨
 types
--- TODO Define types here
+CurrencyRright ::
+	currency_id : nat
+	user : User
+	quantity : Quantity;
+
 values
 	
 	
 instance variables
-	public currencyList : seq of Currency :=[];
 	public relationList : seq of Relation :=[];
-
+	public transmittingRuleList : seq of TransmittingRule :=[];
+	public currencyRightList : seq of CurrencyRight :=[];
+	public changeRelationRequest : seq of CurrencyRight :=[];
+	
 operations
--- てんしんごそう
+
 -- 通貨発行
 	public SignOnCurrency: SigedCurrency ==> Currency 
 	SignOnCurrency (unitName, puclishingUser, currencyDefinition) ==
@@ -22,36 +28,69 @@ operations
 			with
 				skip -- 失敗を返す
 			in
+				-- atomic
+				(
+				-- 関係性の削除
+				(relationList := deleteAllCurrencyRelation(currency));
+				-- 通貨自体の削除
 				(currencyList := currencyList :-> {currency});
--- 関係性解消
-	public static DeleteRelation: () ==> bool
-	DeleteRelation(relatio) ==
-		(deleteFromRelationList( targetRelationCondition));
+				);
+
 -- 最もメタ的な移動ルール
 -- 関係性付与
 	public MakeRelation: () ==> bool
 	MakeRelation(relation) ==
 		(makeFromRelationList(relationId, rargetRelationCondition));
+-- 関係性解消
+	public static DeleteRelation: () ==> bool
+	DeleteRelation(relatio) ==
+		(deleteFromRelationList( targetRelationCondition));
 
-
-	
 -- 移動ルールの設定
 -- 移動ルールを設定してお金を作る　作れたらベクトルをquantityに持つ通貨を作る
 	public SetTransmittingRule: () ==> bool
-	SetTransmittingRule(rule) =  
+	SetTransmittingRule(rule) ==
+	 currency.trasmittingRule := rule;
+	 
+-- 移動ルールの消去
+	public DeleteTransmittingRule: () ==> bool
+	DeleteTransmittingRule(rule) ==
+	 currency.trasmittingRule := rule;
 
 -- 移動ルールを使用した関係性の変化
-
+	public TransmitCurrencyWithRule: () ==> bool
+	TransmitCurrencyWithRule(rule,targetRelationCondition) ==
+	updateRelationList(targetRelationCondition);
+	
+	-- rule を継承しながら記述する方法
+	public AddRule:() ==> bool
+	AddRule (rule) == 
+	(transmittingRule := currency.ruleList union {rule};);
+	
+	public static addRelationList: RelationConditon ==> bool
+	addRelationList(addRelationRequest) == is subclass responsibility;
+	
 functions
+	private IsFitForCurrencyPolicy: UpdateCurrencyRelation -> bool
+	IsFitForCurrencyPolicy () == is subclass responsibility;
+	
+	private static logger : () -> bool
+	logger(array)  ==
+		-- 入ってきた配列に増減と変更があったら全部記録するぞ
+		log = log ++ {row};
 	-- relationId だと、細かく指定しなければ削除できない。
 	-- 条件指定　誰が持ってていくらあげる　下げる
+	-- exchange じゃなくて update にしたのは、 rails の　CURDの原則に従う命名だから。
 	public static updateRelationList: RelationConditon -> bool
 	updateRelationList(targetRelationCondition) ==
 		if targetRelationCondition.id <> null
-		then (relationList := relationList :-> {relation});
+		then relationList = relationList :-> {relation}
 
-	public static
-		addRelationList: RelationConditon -> bool
+	public static createCurrencyRight: RelationConditon -> bool
+	createCurrencyRight(changeRelationRequest) == is subclass responsibility;
+		
+	public static isFitForExchangeRule : ChangeRelationRequests -> bool
+	isFitForExchangeRule(changeRelationRequest
 	
 traces
 -- TODO Define Combinatorial Test Traces here
