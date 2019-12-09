@@ -1,0 +1,16 @@
+class SignCurrencyRequest
+types
+-- TODO Define types here
+values
+-- TODO Define values here
+instance variables
+	public unitName : seq of char :=[];
+	public	publishingUser : User ;
+	public	currencyDefinition : CurrencyDefinition;
+operations
+-- TODO Define operations here
+functions
+-- TODO Define functions here
+traces
+-- TODO Define Combinatorial Test Traces here
+end SignCurrencyRequest

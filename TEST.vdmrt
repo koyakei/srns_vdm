@@ -1,8 +1,23 @@
 class Test
-
+types
+values
+ 	
+instance variables
+	public currencyList : seq of Currency :=[];
+	public userList : seq of User :=[];
 operations
-  Money in set Currency
-  public Run: TestResult ==> ()
-  Run (-) == is subclass responsibility
+	
+
+  public Run: () ==> ()
+	Run () ==
+    (Currency();
+     Money();
+     VectorCurrency());
+     
+  public SignOnCurrency: SignCurrencyRequest ==> () 
+	SignOnCurrency(SignCurrencyRequest) == currency := Currency(
+		 SignCurrencyRequest.unitName, 
+			SignCurrencyRequest.puclishingUser,
+		 SignCurrencyRequest.currencyDefinition);
 
 end Test

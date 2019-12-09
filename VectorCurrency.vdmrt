@@ -1,14 +1,39 @@
-class VectorCurrency
+class VectorCurrency is subclass of currency
 types
--- TODO Define types here
+
 values
--- TODO Define values here
+ public quantity = new Quantity();
+ 
 instance variables
 -- TODO Define instance variables here
 operations
--- TODO Define operations here
+	-- ただあげるだけにしとく。原因なしの通貨の発生
+	public give : Currency ==> ()
+	give(-) ==
+		-- create currency right 
+		if isFitForExchangeRule(changeRelationRequest) then
+			-- 手持ちの権利で使えるものは先に使う
+			-- 手持ちの権利を後で使う　２つの選択肢がある。
+			(
+			(
+			-- 幾ら元はただだったとしても、誰から与えられたのかは記録しておく。
+			-- 一般的に無価値なものをもらったとしても、それは誰に与えられたかが問題になる。
+			-- 権利を発生させる関数を用意して、それを使ったほうが良さそう
+			-- 記録先は? watch logs
+			
+			-- 権利生成
+			currencyRightList := createCurrencyRight(changeRelationRequest));
+			-- exchange currency
+			currencyList := updateRelationList(currencyRightList, changeRelationRequest)
+			);
+			-- logging
+			
+	
 functions
--- TODO Define functions here
+		public static createCurrencyRight: RelationConditon -> bool
+		createCurrencyRight(changeRelationRequests) == 
+		(currencyRightList = currencyRightList ++ { changeRelationRequests });
+		
 traces
 -- TODO Define Combinatorial Test Traces here
 end VectorCurrency

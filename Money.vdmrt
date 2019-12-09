@@ -10,15 +10,27 @@ instance variables
  quantity : Quantity;
 
 operations
+public addController: FlareController ==> ()
+addController (pctrl) ==
+  (
+   atomic 
+    (ranges := ranges munion {nid |-> pctrl.getAperture()};
+     controllers := controllers munion {nid |-> pctrl}
+    );
+   );
 -- 定量的交換法則一つ増えたら一つ減る。
-	public TransmitMoney : Transmission ==> bool
-		atomic 
-		(
-			decreace(currency, giver, unit, quantitiy)
-			increace(currency, taker, unit, quantitiy)
-		);
-	
-	
+	public transmitMoney : Transmission ==> ()
+		transmitMoney (currency, giver, taker, unit, quantitiy) ==
+		-- wallet といっていいの？お金のときは、account ごとの　currencty relation を wallet と呼ぶことにするか？
+		(atomic 
+    (giver.wallet := decreaceWalletQuantity(currency, giver, unit, quantitiy);
+     taker.wallet := increaceWalletQuantity(currency, taker, unit, quantitiy)
+    );
+   );
+   
+-- ルールリストに加えるべき？　ルールリストをツリー型にして、root からルールをたどるべきなのか？
+--　ルールリストのたどり方は両方ともありえる。末端優先　親優先
+
 
 functions
 	static public 送金可能: TransmitMoney +> bool

@@ -1,12 +1,8 @@
-class CurrencyAccount
+class RelationConditon
 types
-public 行 ::
-	fOwner : User
-	fUnit : Unit
-	fQuantity :- Quantity;
-	
+-- TODO Define types here
 values
-	public defaultQuantity = 0;
+-- TODO Define values here
 instance variables
 -- TODO Define instance variables here
 operations
@@ -15,4 +11,4 @@ functions
 -- TODO Define functions here
 traces
 -- TODO Define Combinatorial Test Traces here
-end CurrencyAccount
+end RelationConditon
