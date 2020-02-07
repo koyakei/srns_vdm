@@ -1,18 +1,18 @@
 class CurrencyAccount
-types
-public 行 ::
-	fOwner : User
-	fUnit : Unit
-	fQuantity :- Quantity;
-	
-values
-	public defaultQuantity = 0;
-instance variables
--- TODO Define instance variables here
-operations
--- TODO Define operations here
-functions
--- TODO Define functions here
-traces
--- TODO Define Combinatorial Test Traces here
+--types
+--public 行 ::
+--	fOwner : User
+--	fUnit : Unit
+--	fQuantity :- Quantity;
+--	
+--values
+--	public defaultQuantity = 0;
+--instance variables
+---- TODO Define instance variables here
+--operations
+---- TODO Define operations here
+--functions
+---- TODO Define functions here
+--traces
+---- TODO Define Combinatorial Test Traces here
 end CurrencyAccount

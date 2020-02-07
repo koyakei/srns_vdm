@@ -1,0 +1,27 @@
+class TagRelation is subclass of Relation
+types
+-- TODO Define types here
+values
+-- TODO Define values here
+instance variables
+ public id : nat;
+ public toId: nat;
+ public fromId: nat;
+ public publisherId : nat;
+ 
+operations
+
+public TagRelation: nat * nat * nat * nat ==> TagRelation
+TagRelation(rId, rToId, rFromId, rPublisherId) ==
+(
+	id := rId;
+	toId := rToId;
+	fromId := rFromId;
+	publisherId := rPublisherId;
+);
+
+functions
+-- TODO Define functions here
+traces
+-- TODO Define Combinatorial Test Traces here
+end TagRelation

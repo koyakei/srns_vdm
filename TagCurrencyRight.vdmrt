@@ -1,0 +1,33 @@
+class TagCurrencyRight is subclass of CurrencyRight
+types
+-- TODO Define types here
+values
+-- TODO Define values here
+instance variables
+	public tag : Tag;
+	public user : User;
+	public static size: nat := 0;
+	
+	
+operations
+public TagCurrencyRight:Tag  * User * nat  ==> TagCurrencyRight
+TagCurrencyRight(atag,ausr , asize) ==
+(
+	tag := atag;
+	user := ausr;
+	size := asize;
+	);
+	
+public UpdateSize: nat ==> TagCurrencyRight
+UpdateSize (asize) ==
+	(
+	size := size + asize;
+	return self;
+	)
+post size > 0;
+
+functions
+-- TODO Define functions here
+traces
+-- TODO Define Combinatorial Test Traces here
+end TagCurrencyRight

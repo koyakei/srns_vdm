@@ -1,0 +1,20 @@
+class Tag is subclass of Item
+types
+-- TODO Define types here
+values
+-- TODO Define values here
+instance variables
+public id :nat;
+public name :seq of char;
+public publisher: User;
+operations
+
+public Tag: nat * seq of char ==> Tag
+Tag(tagId, aname) ==
+(
+	id:= tagId;
+	name := aname;
+	);
+traces
+-- TODO Define Combinatorial Test Traces here
+end Tag

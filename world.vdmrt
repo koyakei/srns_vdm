@@ -1,0 +1,25 @@
+
+class World
+instance variables
+
+-- maintain a link to the environment
+public static timerRef : RTTimeStamp := RTTimeStamp`GetInstance();
+public static env : [Environment] := nil;
+public static test : seq of char := "s";
+private currency : CurrencyTest;
+operations
+
+public World: () ==> World
+World () == (
+ test := "s";
+ );
+-- the run function blocks the user-interface thread
+-- until all missiles in the file have been processed
+public Run: () ==> ()
+
+Run () == 
+  (-- start the environment
+   currency := new CurrencyTest();
+   currency.Run();
+   )
+end World

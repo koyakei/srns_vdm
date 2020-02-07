@@ -1,23 +1,11 @@
+\begin{vdm_al}
 class Test
 types
 values
  	
-instance variables
-	public currencyList : seq of Currency :=[];
-	public userList : seq of User :=[];
 operations
-	
-
-  public Run: () ==> ()
-	Run () ==
-    (Currency();
-     Money();
-     VectorCurrency());
-     
-  public SignOnCurrency: SignCurrencyRequest ==> () 
-	SignOnCurrency(SignCurrencyRequest) == currency := Currency(
-		 SignCurrencyRequest.unitName, 
-			SignCurrencyRequest.puclishingUser,
-		 SignCurrencyRequest.currencyDefinition);
+  public Run: TestResult ==> ()
+  Run (-) == is subclass responsibility
 
 end Test
+\end{vdm_al}

@@ -1,0 +1,20 @@
+
+class GLOBAL
+
+values
+  public ROOT_USER_ID = 1;
+  public ROOT_USER_NAME = "root";
+	public static ROOT_USER = new User(ROOT_USER_ID,ROOT_USER_NAME)
+instance variables
+public static userList : set of User := {new User(ROOT_USER_ID, ROOT_USER_NAME)};
+types
+operations
+--public GLOBAL : () ==> GLOBAL
+--GLOBAL () ==
+--	(
+--	);
+	
+public GetRootUser: () ==> set of User
+GetRootUser () ==
+	return {user | user in set userList & user.id = ROOT_USER_ID}
+end GLOBAL

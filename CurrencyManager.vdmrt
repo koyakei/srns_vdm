@@ -1,38 +1,38 @@
 class CurrencyManager
-types
-	Current ::
-		createCurrencyTimes : createCurrencyTimes
-		changeMinimumRelationTimes : changeMinimumRelationTimes
-		deleteCurrencyTimes : deleteCurrencyTimes;
-values
--- TODO Define values here
-instance variables
--- create とdelete だけ標準で数えるべきで、
--- relation の変化は一番細かい粒度はログの行数のカウントだけにしておこうか？
-	private createCurrencyTimes : nat;
-	private changeMinimumRelationTimes : nat;
-	private deleteCurrencyTimes : nat;
-	
-	--　それぞれの関数がカウンタを返してもいいのかもしれないけど、回数がすごく多くなるよね。
-	-- 回数が数えられるとそれがセキュリティーリスクになる場合もあるし、どうしようかな
-operations
--- 通貨の流通バランスが整っているかどうかを判定する。
-	public static updateRelationList: RelationConditon ==> bool
-	updateRelationList(updateRelationRequests) ==
-		for updateRelationRequests in updateRelationRequest do
-			addRelationList(updateRelationRequest);
-		
-	public static addRelationList: RelationConditon ==> bool
-	addRelationList(updateRelationRequest) ==
-		if IsFitForCurrencyPolicy(updateRelationRequest) then
-		relationList := relationList ++ {updateRelationRequest.relation}
-	
-functions
-	private IsFitForCurrencyPolicy: UpdateCurrencyRelation -> bool
-	IsFitForCurrencyPolicy () ==
-		 (createCurrencyTimes = changeMinimumRelationTimes) and 
-			(createCurrencyTimes = deleteCurrencyTimes)
-		
-traces
--- TODO Define Combinatorial Test Traces here
+--types
+--	Current ::
+--		createCurrencyTimes : createCurrencyTimes
+--		changeMinimumRelationTimes : changeMinimumRelationTimes
+--		deleteCurrencyTimes : deleteCurrencyTimes;
+--values
+---- TODO Define values here
+--instance variables
+---- create とdelete だけ標準で数えるべきで、
+---- relation の変化は一番細かい粒度はログの行数のカウントだけにしておこうか？
+--	private createCurrencyTimes : nat;
+--	private changeMinimumRelationTimes : nat;
+--	private deleteCurrencyTimes : nat;
+--	
+--	--　それぞれの関数がカウンタを返してもいいのかもしれないけど、回数がすごく多くなるよね。
+--	-- 回数が数えられるとそれがセキュリティーリスクになる場合もあるし、どうしようかな
+--operations
+---- 通貨の流通バランスが整っているかどうかを判定する。
+--	public static updateRelationList: RelationConditon ==> bool
+--	updateRelationList(updateRelationRequests) ==
+--		for updateRelationRequests in updateRelationRequest do
+--			addRelationList(updateRelationRequest);
+--		
+--	public static addRelationList: RelationConditon ==> bool
+--	addRelationList(updateRelationRequest) ==
+--		if IsFitForCurrencyPolicy(updateRelationRequest) then
+--		relationList := relationList ++ {updateRelationRequest.relation}
+--	
+--functions
+--	private IsFitForCurrencyPolicy: UpdateCurrencyRelation -> bool
+--	IsFitForCurrencyPolicy () ==
+--		 (createCurrencyTimes = changeMinimumRelationTimes) and 
+--			(createCurrencyTimes = deleteCurrencyTimes)
+--		
+--traces
+---- TODO Define Combinatorial Test Traces here
 end CurrencyManager

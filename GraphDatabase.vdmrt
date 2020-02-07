@@ -1,48 +1,48 @@
 class GraphDatabase
-types
-	Edge ::
-		edge_id : nat
-		from_id : nat
-		to_id : nat
-		propaty : LabelSet;
-	Node ::
-		node_id : nat
-		name : seq of char
-		propaty : Label;
-	Label ::
-		label_id : nat
-		name : seq of char;
-values
--- TODO Define values here
-instance variables
-  public labelList : seq of Label :=[];
-  public nodeList : seq of Node :=[];
-  public edgeList : seq of Edge :=[];
-operations
-	-- 結びつけたいターゲットNode はすでに存在しているとする
-	public makeTriKeyStructure : () ==> ()
-		-- 2点間の
-		makeTriKeyStructure(node_to, node_from, node_tri) ==
-			edge_id := insertEdge(node_to, node_from);
-	
-	public insertEdge: () ==> edge_id
-	insertEdge(edge_to, edge_from) ==
-		-- edge_id
-		-- edge_id := createHash();
-		-- (edgeList := edgeList ++ {edge_id, edge_to, edge_from}
-		return edge_id;
-		
-	public deleteEdge: nat ==> bool
-	deleteEdge () == 
-		return 1;
-		
-	-- public insertNode
-	-- public deleteNode
-functions
-	public static createHash: CreateHash -> nat
-	createHash  () ==
-	 rand 
-	
-traces
--- TODO Define Combinatorial Test Traces here
+--types
+--	Edge ::
+--		edge_id : nat
+--		from_id : nat
+--		to_id : nat
+--		propaty : LabelSet;
+--	Node ::
+--		node_id : nat
+--		name : seq of char
+--		propaty : Label;
+--	Label ::
+--		label_id : nat
+--		name : seq of char;
+--values
+---- TODO Define values here
+--instance variables
+--  public labelList : seq of Label :=[];
+--  public nodeList : seq of Node :=[];
+--  public edgeList : seq of Edge :=[];
+--operations
+--	-- 結びつけたいターゲットNode はすでに存在しているとする
+--	public makeTriKeyStructure : () ==> ()
+--		-- 2点間の
+--		makeTriKeyStructure(node_to, node_from, node_tri) ==
+--			edge_id := insertEdge(node_to, node_from);
+--	
+--	public insertEdge: () ==> edge_id
+--	insertEdge(edge_to, edge_from) ==
+--		-- edge_id
+--		-- edge_id := createHash();
+--		-- (edgeList := edgeList ++ {edge_id, edge_to, edge_from}
+--		return edge_id;
+--		
+--	public deleteEdge: nat ==> bool
+--	deleteEdge () == 
+--		return 1;
+--		
+--	-- public insertNode
+--	-- public deleteNode
+--functions
+--	public static createHash: CreateHash -> nat
+--	createHash  () ==
+--	 rand 
+--	
+--traces
+---- TODO Define Combinatorial Test Traces here
 end GraphDatabase

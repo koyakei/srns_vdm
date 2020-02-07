@@ -4,9 +4,26 @@ types
 values
 -- TODO Define values here
 instance variables
--- TODO Define instance variables here
+ public id : nat;
+ public toId: nat;
+ public fromId: nat;
+-- public triId: nat;  -- 一旦使わない
+ 
 operations
--- TODO Define operations here
+public Relation: nat ==> Relation
+Relation(rId) ==
+(
+id := rId;
+);
+
+public Relation: nat * nat * nat * nat ==> Relation
+Relation(rId, rToId, rFromId, rTriId) ==
+(
+id := rId;
+toId := rToId;
+fromId := rFromId;
+);
+
 functions
 -- TODO Define functions here
 traces

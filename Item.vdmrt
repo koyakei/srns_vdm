@@ -1,0 +1,21 @@
+class Item
+types
+-- TODO Define types here
+values
+-- TODO Define values here
+instance variables
+public id : nat;
+public name : seq of char := "";
+operations
+public Item: nat * seq of char ==> Item
+Item(itemId, itemName) ==
+(
+	id := itemId;
+	name := itemName;
+	);
+	
+functions
+-- TODO Define functions here
+traces
+-- TODO Define Combinatorial Test Traces here
+end Item

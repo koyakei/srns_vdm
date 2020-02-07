@@ -1,19 +1,14 @@
-class Quantity
+class CurrencyRelation
 types
 -- TODO Define types here
 values
-  
+-- TODO Define values here
 instance variables
-public static size: nat := 0;
-
+-- TODO Define instance variables here
 operations
-public Quantity : () ==> Quantity
-Quantity () ==
-	(
-	size := 0;
-	);
+-- TODO Define operations here
 functions
 -- TODO Define functions here
 traces
 -- TODO Define Combinatorial Test Traces here
-end Quantity
+end CurrencyRelation

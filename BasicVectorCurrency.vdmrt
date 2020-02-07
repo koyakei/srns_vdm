@@ -1,37 +1,37 @@
 class BasicVectorCurrency is subclass of Currency
-types
-public exchangeCurrencyList ::
-	taker : User
-	giver : User
-	currency: Currency
-	quantitiy : Quantity
-	
-values
--- TODO Define values here
-instance variables
--- TODO Define instance variables here
-operations
--- 与えるだけでも必ず、贈与者と譲受者の双方の権利を操作する。
--- 無制限に関係性を作れる通貨であっても、権利の操作引数がある関数を使う。
-	public givingCurrency : () ==> ()
-		givingCurrency(currency, giver, taker, unit, quantitiy) ==
-			-- wallet といっていいの？お金のときは、account ごとの　currencty relation を wallet と呼ぶことにするか？
-			(atomic 
-	    (giver.wallet := decreaceWalletQuantity(currency, giver, unit, quantitiy);
-	     taker.wallet := increaceWalletQuantity(currency, taker, unit, quantitiy)
-	    );
-	   );
-	
--- n者取引備えて、givingCurrencyList にしておく
--- 取引とは、複数人間で複雑なトロポジーで行うものである。それらに対応できるようにするべき。
--- Set だと、順序がなくなるけど、実行可能かどうかの検証順序がない場合、問題を起こしそう。
-	public exchangeCurrency : () ==> ()
-			exchangeCurrency (exchangeCurrencyOrderList) ==
-			-- wallet といっていいの？お金のときは、account ごとの　currencty relation を wallet と呼ぶことにするか？
-			-- atomic
-				for all exchangeCurrencyOrder in set dom exchangeCurrencyOrderList do 
-			    giver.wallet := givingCurrency(exchangeCurrencyOrder)
-	    	
+--types
+--public exchangeCurrencyList ::
+--	taker : User
+--	giver : User
+--	currency: Currency
+--	quantitiy : Quantity
+--	
+--values
+---- TODO Define values here
+--instance variables
+---- TODO Define instance variables here
+--operations
+---- 与えるだけでも必ず、贈与者と譲受者の双方の権利を操作する。
+---- 無制限に関係性を作れる通貨であっても、権利の操作引数がある関数を使う。
+--	public givingCurrency : () ==> ()
+--		givingCurrency(currency, giver, taker, unit, quantitiy) ==
+--			-- wallet といっていいの？お金のときは、account ごとの　currencty relation を wallet と呼ぶことにするか？
+--			(atomic 
+--	    (giver.wallet := decreaceWalletQuantity(currency, giver, unit, quantitiy);
+--	     taker.wallet := increaceWalletQuantity(currency, taker, unit, quantitiy)
+--	    );
+--	   );
+--	
+---- n者取引備えて、givingCurrencyList にしておく
+---- 取引とは、複数人間で複雑なトロポジーで行うものである。それらに対応できるようにするべき。
+---- Set だと、順序がなくなるけど、実行可能かどうかの検証順序がない場合、問題を起こしそう。
+--	public exchangeCurrency : () ==> ()
+--			exchangeCurrency (exchangeCurrencyOrderList) ==
+--			-- wallet といっていいの？お金のときは、account ごとの　currencty relation を wallet と呼ぶことにするか？
+--			-- atomic
+--				for all exchangeCurrencyOrder in set dom exchangeCurrencyOrderList do 
+--			    giver.wallet := givingCurrency(exchangeCurrencyOrder)
+--	    	
    
 functions
 -- TODO Define functions here

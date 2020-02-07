@@ -5,14 +5,24 @@ types
 values
 
 instance variables
-	public currency_id : nat;
+	public currencyId : nat;
 	public user : User;
 	public quantity : Quantity;
+	public size :nat;
 	
 operations
--- TODO Define operations here
+public CurrencyRight: nat * User * Quantity ==> CurrencyRight
+CurrencyRight(cId, usr, qy) ==
+(
+	currencyId := cId;
+	user := usr;
+	quantity := qy
+	);
+public UpdateSize : nat ==> ()
+UpdateSize(s) ==
+	size := size + s
 functions
--- TODO Define functions here
+
 traces
 -- TODO Define Combinatorial Test Traces here
 end CurrencyRight

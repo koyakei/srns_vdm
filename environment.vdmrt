@@ -1,0 +1,24 @@
+\begin{vdm_al}
+class Environment is subclass of GLOBAL, BaseRTThread
+
+types
+
+
+
+instance variables
+
+-- access to the VDMTools stdio
+io : IO := new IO();
+
+-- the input file to process
+
+operations
+
+
+sync
+end Environment
+\end{vdm_al}
+
+\begin{rtinfo}[Environment`GetAndPurgeOutlines]
+{vdm.tc}[Environment]
+\end{rtinfo}

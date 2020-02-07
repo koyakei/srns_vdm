@@ -1,0 +1,116 @@
+class TagCurrency is subclass of Currency
+types
+-- TODO Define types here
+values
+ public right = <TagCurrencyRight>; 
+instance variables
+	public thisCurrencyRightSet : set of TagCurrencyRight :={};
+	public static relationList : set of TagRelation :={};
+operations
+public TagCurrency: nat ==> TagCurrency
+TagCurrency (tId) == 
+	id :=  tId;
+
+	
+public ResetRight: () ==> ()
+ResetRight () ==
+	thisCurrencyRightSet := {};
+	
+public Tagging: Item *　Tag * set of User ==> Relation
+	Tagging(item,tag,userSet) ==
+		(
+			-- 重複検査が書かれてない。
+			CreateRelation( item.id, tag.id, global.ROOT_USER_ID);
+		);
+		
+public UnTagging: set of Item * set of Tag * set of User ==> ()
+	UnTagging(itemSet,tagSet,userSet) ==
+		(
+			let right in set thisCurrencyRightSet be st ({right.tag} subset tagSet and {right.user} subset userSet)  in 
+			(
+--						CreateRelation(1,1,1);
+						DeleteRelation(1,1,1);
+			);
+		);
+
+public GetCurrencyRightSize: Tag * User ==> nat
+GetCurrencyRightSize (tag, user)==
+(
+	-- ヒットしない場合どういうエラーを返そうか？　right not found かな
+	if (exists tagCurrencyRight in set thisCurrencyRightSet & ( tagCurrencyRight.tag.id = tag.id and tagCurrencyRight.user.id = user.id)) then 
+		exit <RightNotFound>;
+-- set に対して、ヒットする唯一の　TagCurrencyRight　があるはずだから、それの
+	let tagCurrencyRight in set thisCurrencyRightSet be st ( tagCurrencyRight.tag.id = tag.id and tagCurrencyRight.user.id = user.id)  in
+		return tagCurrencyRight.size;
+		);
+	--　これで行けるはずなんだけど
+	
+public DeleteRelation: nat * nat * nat  ==> ()
+	DeleteRelation(itemId, tagId, userId) ==
+		(
+			dcl deleteCandidate : set of TagRelation :={};
+			let right in set thisCurrencyRightSet be st ( right.tag.id = tagId and right.user.id = userId)  in 
+			(
+					-- pre 重複確認　 item tag user の組み合わせで重複がないか確認する。
+						-- 　update に成功したら
+						dcl updatedCurrencyRight : TagCurrencyRight;
+						updatedCurrencyRight := right.UpdateSize(+1);
+						let relation in set relationList be st (relation.toId = itemId and 
+						relation.fromId = updatedCurrencyRight.tag.id and 
+						relation.publisherId = updatedCurrencyRight.user.id) in 
+						deleteCandidate := deleteCandidate union {relation};
+						-- 削除用リストに検索結果に一致したものを突っ込む
+			);
+			-- 消す
+			relationList := relationList \ deleteCandidate;
+		);
+		
+public CreateRelation: nat * nat * nat ==> Relation
+	CreateRelation(itemId, tagId, userId) ==
+		(
+				let right in set thisCurrencyRightSet be st (right.tag.id = tagId and right.user.id = userId) in 
+				(
+							dcl updatedCurrencyRight : TagCurrencyRight;
+							dcl createdRelation: TagRelation;
+							updatedCurrencyRight := right.UpdateSize(-1);
+							-- 　update に成功したら
+							-- 関係性を作る
+							createdRelation := new TagRelation(1,itemId,updatedCurrencyRight.tag.id,updatedCurrencyRight.user.id);
+								relationList := relationList union {createdRelation};
+							return createdRelation;
+							-- 削除用リストに検索結果に一致したものを突っ込む
+				);
+		);
+
+public GivingRight: Tag * User * nat ==> ()
+GivingRight (tag , user, size) ==
+	thisCurrencyRightSet := thisCurrencyRightSet union {new TagCurrencyRight(tag, user, size)};
+	
+public AddCurrencyRight: Tag * User * nat ==> TagCurrencyRight
+AddCurrencyRight (tag, user,increasingSize) ==
+(
+--　なかったら追加　あったら一つ増加
+	if (exists tagCurrencyRight in set thisCurrencyRightSet & ( tagCurrencyRight.tag.id = tag.id and tagCurrencyRight.user.id = user.id)) then
+		return UpdateCurrencyRightSize(tag, global.ROOT_USER, increasingSize)
+	else
+		(
+			dcl tagCurrencyRight : TagCurrencyRight;
+			tagCurrencyRight := new TagCurrencyRight(tag, user , increasingSize);
+			thisCurrencyRightSet := thisCurrencyRightSet union {tagCurrencyRight };
+			return tagCurrencyRight;
+		);
+);
+
+private UpdateCurrencyRightSize: Tag *  User * nat==> TagCurrencyRight
+UpdateCurrencyRightSize (tag, user, increasingSize)  ==
+	let right in set thisCurrencyRightSet be st ({right.tag} subset {tag} and right.user = user)  in 
+			(
+						right.UpdateSize(increasingSize)
+			);
+
+	
+functions
+-- TODO Define functions here
+traces
+-- TODO Define Combinatorial Test Traces here
+end TagCurrency

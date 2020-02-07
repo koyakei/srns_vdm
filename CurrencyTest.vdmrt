@@ -1,0 +1,103 @@
+class CurrencyTest
+types
+CurrencySet = set of Currency
+values
+
+public tagCurrency = new  TagCurrency();
+private global = new GLOBAL();
+instance variables
+public currencySet: CurrencySet := {};
+private currency: Currency;
+private rootTag : Tag;
+private rootTagSet : set of Tag;
+private rootItemSet : set of Item;
+
+operations
+	public Run: () ==> ()
+  Run () ==
+	  (
+	  currency := new Currency("test", "kyen");
+	  CreateCurrency(currency);
+	  def rId = 0 in
+	  (
+	  	currency.MakeRelation(rId);
+	  	currency.DeleteRelation(rId);
+	  	);
+	  	
+	 
+		DeleteCurrency(currency)
+	  );
+	  
+	 --　承認なしに、タグ付けができる権利を表現する。
+	private Tagging: () ==> ()
+	Tagging () ==
+	(
+		 -- 単純なタグをリレーションで作る tag item を作って、リレーションを作成
+		rootTag := CreateTag(1,"tag1");
+	  rootTagSet := {rootTag};
+		rootItemSet := {new Item(1,"root_item")};
+		-- 権利生成 タグをitem に関連付けるルートユーザーの権限を一つ。
+		CanCreateRelation(tagCurrency);
+	 --　権利付与のシナリオがほしいぜ。
+	 -- 付与していない人が動かせない
+	 -- 付与した人が動かせる　の二通りのシナリオ
+		);
+		
+		private CanCreateRelation : TagCurrency ==>()
+		CanCreateRelation (atagCurrency) ==
+		(
+		atagCurrency.GivingRight(rootTag, global.ROOT_USER,1);
+		atagCurrency.Tagging(rootItemSet , rootTagSet, global.ROOT_USER);
+	 	-- 作ったリレーションを消す
+	 	atagCurrency.UnTagging(rootItemSet , rootTagSet, global.GetRootUser());
+	 	
+	 	
+	 	
+	 	-- 権限が消した人間に戻っているのか？
+	 	-- そもそも消す権利も権限を一つ消費するんじゃないの？
+	 	-- 削除権限　を別種の権限として
+	 	)
+	 	-- 権利が一つ残っているか
+	 	post 1 = atagCurrency.GetCurrencyRightSize(tag, user);
+		
+		private CantCreateRelation : () ==>()
+		CantCreateRelation () ==
+		(
+		
+		tagCurrency.ResetRight(); -- 権限表のリセット
+	 	tagCurrency.MakeRelation(1,  1,1); -- 権限無しで実行すると失敗
+	 	);
+		
+	 
+	 private CreateCurrency : Currency ==> ()
+	 CreateCurrency (currency) ==
+	 	(
+	 		currencySet := currencySet union {currency};
+		  if not(CurrencyHasName(currencySet)) then 
+		  	exit <CURRENCY_HAS_NOT_NAME>;
+	 	);
+	 	
+	 private DeleteCurrency : Currency ==> ()
+	 DeleteCurrency (currency) ==
+	 	(
+	 		currencySet :=  currencySet \ {currency};
+			if not(IsCurrencyDeleted(currency, currencySet)) then
+			 exit <CURRENCY_IS_NOT_DELETEDD>;
+	 	);
+	 	
+		private CreateTag: nat * seq of char ==> Tag
+		CreateTag(id, name) ==
+			return new Tag(id, name);
+			
+functions
+CurrencyHasName : CurrencySet -> bool
+ CurrencyHasName(currencySet) ==
+    forall currency in set currencySet & currency.currencyName <> "";
+ 
+IsCurrencyDeleted : Currency * CurrencySet -> bool
+	IsCurrencyDeleted(currency, currencySet) ==
+		currency not in set currencySet;
+   
+traces
+-- TODO Define Combinatorial Test Traces here
+end CurrencyTest
